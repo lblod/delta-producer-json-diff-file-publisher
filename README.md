@@ -3,6 +3,17 @@
 - Provides endpoint so consumers can query the produced dela-files
 ## Reference
 ### Configuration
+#### docker-compose.yml
+```
+  delta-production-json-diff-file-manager-leidinggevenden:
+    image: lblod/delta-production-json-diff-file-manager:0.0.1
+    environment:
+      RELATIVE_FILE_PATH: "subdirectory/from/share/on"
+      PUBLISHER_URI: "http://name/of/service/in/docker-compose/stack"
+      CACHE_GRAPH: 'http://cache/graph/to/watch'
+    volumes:
+       - ./data/files:/share
+```
 #### deltanotifier
 Append the following entry:
 ```
