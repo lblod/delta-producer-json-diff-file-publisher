@@ -1,0 +1,20 @@
+{
+  "name": "delta-production-json-diff-file-manager",
+  "version": "0.0.1",
+  "description": "Microservice to produce delta json diff files based on notifications from cache graph",
+  "dependencies": {
+    "@lblod/mu-auth-sudo": "^0.2.0",
+    "fs-extra": "^8.0.1",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lblod/delta-production-json-diff-file-manager.git"
+  },
+  "author": "redpencil.io",
+  "license": "MIT"
+}
