@@ -1,5 +1,5 @@
 {
-  "name": "delta-production-json-diff-file-manager",
+  "name": "delta-producer-json-diff-file-publisher",
   "version": "0.0.1",
   "description": "Microservice to produce delta json diff files based on notifications from cache graph",
   "dependencies": {
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lblod/delta-production-json-diff-file-manager.git"
+    "url": "git+https://github.com/lblod/delta-producer-json-diff-file-publisher.git"
   },
   "author": "redpencil.io",
   "license": "MIT"

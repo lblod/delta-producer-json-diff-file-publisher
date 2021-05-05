@@ -1,9 +1,8 @@
 export const LOG_INCOMING_DELTA = process.env.LOG_INCOMING_DELTA || false;
 export const LOG_OUTGOING_DELTA = process.env.LOG_OUTGOING_DELTA || false;
 export const DELTA_INTERVAL = process.env.DELTA_INTERVAL_MS || 1000;
-export const LOG_DELTA_REWRITE = process.env.LOG_DELTA_REWRITE || false;
 export const RELATIVE_FILE_PATH = process.env.RELATIVE_FILE_PATH || 'deltas';
-export const PUBLISHER_URI = process.env.PUBLISHER_URI || 'http://data.lblod.info/services/delta-production-json-diff-file-manager';
+export const PUBLISHER_URI = process.env.PUBLISHER_URI || 'http://data.lblod.info/services/delta-producer-json-diff-file-publisher';
 
 export const PREFIXES = `
   PREFIX mu: <http://mu.semte.ch/vocabularies/core/>
@@ -21,7 +20,7 @@ export const PREFIXES = `
 
 export const ERROR_URI_PREFIX = 'http://redpencil.data.gift/id/cache-maintenance/error/';
 
-export const ERROR_GRAPH =  process.env.JOBS_GRAPH || 'http://mu.semte.ch/graphs/system/errors';
+export const ERROR_GRAPH =  process.env.ERROR_GRAPH || 'http://mu.semte.ch/graphs/system/errors';
 
 export const ERROR_TYPE= 'http://open-services.net/ns/core#Error';
 export const DELTA_ERROR_TYPE = 'http://redpencil.data.gift/vocabularies/deltas/Error';

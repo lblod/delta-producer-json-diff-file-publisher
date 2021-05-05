@@ -1,12 +1,12 @@
-# delta-production-json-diff-file-manager
+# delta-producer-json-diff-file-publisher
 - Produces delta diff files based on modifications of the delta-cache graph
 - Provides endpoint so consumers can query the produced dela-files
 ## Reference
 ### Configuration
 #### docker-compose.yml
 ```
-  delta-production-json-diff-file-manager-leidinggevenden:
-    image: lblod/delta-production-json-diff-file-manager:0.0.1
+  delta-producer-json-diff-file-publisher-leidinggevenden:
+    image: lblod/delta-producer-json-diff-file-publisher:0.0.1
     environment:
       RELATIVE_FILE_PATH: "subdirectory/from/share/on"
       PUBLISHER_URI: "http://name/of/service/in/docker-compose/stack"
@@ -39,10 +39,10 @@ Append the following entry:
 The following enviroment variables can be optionally configured:
 * `LOG_INCOMING_DELTA (default: "false")`: log the delta message as received from the delta-notifier to the console
 * `LOG_OUTGOING_DELTA (default: "false")`: log the resulting delta message that will be written to the diff file to the console
-* `LOG_DELTA_REWRITE (default: "false")`: verbose log output during the rewrite of the incoming delta to the resulting delta. Only useful for debugging purposes.
 * `RELATIVE_FILE_PATH (default: "deltas")`: relative path of the delta files compared to the root folder of the file service that will host the files.
-* `PUBLISHER_URI (default: "http://data.lblod.info/services/delta-production-json-diff-file-manager")`: URI underneath which delta files will be saved.
+* `PUBLISHER_URI (default: "http://data.lblod.info/services/delta-producer-json-diff-file-publisher")`: URI underneath which delta files will be saved.
 * `CACHE_GRAPH (required)`: The cache graph the incoming deltas should come from.
+* ``ERROR_GRAPH (default: "http://mu.semte.ch/graphs/system/errors" )`: graph where to write errors to.
 ### API
 #### POST /delta
 Endpoint that receives delta's from the [delta-notifier](https://github.com/mu-semtech/delta-notifier). The delta's are rewritten based on the configured export for mandatees. The resulting delta's are written to files that can be retrieved via the `GET /files` endpoint.
