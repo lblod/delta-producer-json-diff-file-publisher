@@ -1,5 +1,6 @@
 import { uuid, sparqlEscapeDateTime } from 'mu';
 import { querySudo as query, updateSudo as update } from '@lblod/mu-auth-sudo';
+import { storeError } from './utils';
 import fs from 'fs-extra';
 import { PUBLISHER_URI,
          RELATIVE_FILE_PATH,
@@ -44,7 +45,7 @@ export default class DeltaCache {
         console.log("File is persisted in store and can be consumed now.");
 
       } catch (e) {
-        console.log(e);
+        await storeError(e);
       }
     } else {
       console.log("Empty cache. Nothing to save on disk");
