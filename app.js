@@ -2,6 +2,7 @@ import { app, errorHandler } from 'mu';
 import bodyParser from 'body-parser';
 import DeltaCache from './delta-cache';
 import { chain } from 'lodash';
+import { storeError } from './utils';
 
 import {
   LOG_INCOMING_DELTA,
@@ -16,27 +17,32 @@ const cache = new DeltaCache();
 let hasTimeout = null;
 
 app.post('/delta', async function( req, res ) {
-  const delta = req.body;
+  try {
+    const delta = req.body;
 
-  const extractedDelta = extractDeltaToSerialize(delta);
+    const extractedDelta = extractDeltaToSerialize(delta);
 
-  if(extractedDelta.length){
+    if(extractedDelta.length){
 
-    if (LOG_INCOMING_DELTA)
-      console.log(`Receiving delta ${JSON.stringify(extractedDelta)}`);
+      if (LOG_INCOMING_DELTA)
+        console.log(`Receiving delta ${JSON.stringify(extractedDelta)}`);
 
-    const processDelta = async function() {
-      if (LOG_OUTGOING_DELTA)
-        console.log(`Pushing onto cache ${JSON.stringify(extractedDelta)}`);
+      const processDelta = async function() {
+        if (LOG_OUTGOING_DELTA)
+          console.log(`Pushing onto cache ${JSON.stringify(extractedDelta)}`);
 
-      cache.push( ...delta );
+        cache.push( ...delta );
 
-      if( !hasTimeout ){
-        triggerTimeout();
-      }
-    };
+        if( !hasTimeout ){
+          triggerTimeout();
+        }
+      };
 
-    processDelta();  // execute async
+      processDelta();  // execute async
+    }
+  }
+  catch(e){
+    await storeError(e);
   }
 
   res.status(202).send();
