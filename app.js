@@ -28,20 +28,26 @@ app.post('/delta', async function( req, res ) {
         console.log(`Receiving delta ${JSON.stringify(extractedDelta)}`);
 
       const processDelta = async function() {
-        if (LOG_OUTGOING_DELTA)
-          console.log(`Pushing onto cache ${JSON.stringify(extractedDelta)}`);
+        try {
+          if (LOG_OUTGOING_DELTA)
+            console.log(`Pushing onto cache ${JSON.stringify(extractedDelta)}`);
 
-        cache.push( ...delta );
+          cache.push( ...delta );
 
-        if( !hasTimeout ){
-          triggerTimeout();
+          if( !hasTimeout ){
+            triggerTimeout();
+          }
+        }
+        catch(e){
+          console.error(`General error processing delta ${e}`);
+          await storeError(e);
         }
       };
-
       processDelta();  // execute async
     }
   }
   catch(e){
+    console.error(`General error processing delta notification ${e}`);
     await storeError(e);
   }
 
@@ -56,8 +62,14 @@ app.get('/files', async function( req, res ) {
 
 function triggerTimeout(){
   setTimeout( () => {
-    hasTimeout = false;
-    cache.generateDeltaFile();
+    try {
+      hasTimeout = false;
+      cache.generateDeltaFile();
+    }
+    catch(e){
+      console.error(`Error generating delta file ${e}`);
+      storeError(e);
+    }
   }, DELTA_INTERVAL );
   hasTimeout = true;
 }
