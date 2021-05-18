@@ -32,7 +32,7 @@ app.post('/delta', async function( req, res ) {
           if (LOG_OUTGOING_DELTA)
             console.log(`Pushing onto cache ${JSON.stringify(extractedDelta)}`);
 
-          cache.push( ...delta );
+          cache.push( ...extractedDelta );
 
           if( !hasTimeout ){
             triggerTimeout();
