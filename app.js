@@ -1,8 +1,9 @@
-import { app, errorHandler } from 'mu';
+import { app, errorHandler, sparqlEscapeUri } from 'mu';
 import bodyParser from 'body-parser';
 import DeltaCache from './delta-cache';
 import { chain } from 'lodash';
-import { storeError } from './utils';
+import { storeError, serializeTriple } from './utils';
+import { querySudo as query } from '@lblod/mu-auth-sudo';
 
 import {
   LOG_INCOMING_DELTA,
@@ -23,16 +24,17 @@ app.post('/delta', async function( req, res ) {
     const extractedDelta = extractDeltaToSerialize(delta);
 
     if(extractedDelta.length){
+      const actualDelta = await filterActualNotifications(extractedDelta);
 
       if (LOG_INCOMING_DELTA)
-        console.log(`Receiving delta ${JSON.stringify(extractedDelta)}`);
+        console.log(`Receiving delta ${JSON.stringify(actualDelta)}`);
 
       const processDelta = async function() {
         try {
           if (LOG_OUTGOING_DELTA)
-            console.log(`Pushing onto cache ${JSON.stringify(extractedDelta)}`);
+            console.log(`Pushing onto cache ${JSON.stringify(actualDelta)}`);
 
-          cache.push( ...delta );
+          cache.push( ...actualDelta );
 
           if( !hasTimeout ){
             triggerTimeout();
@@ -98,6 +100,50 @@ function extractDeltaToSerialize(delta){
   else {
     return [ { deletes, inserts } ];
   }
+}
+
+
+async function filterActualNotifications(delta){
+  const deletes = chain(delta).map(c => c.deletes).flatten().value();
+  const potentiallyActualDeletes = [];
+
+  for(const triple of deletes){
+    //If we don't see it in the cache graph, we might consider it really as information that hasbeen deleted
+    if( !(await tripleExists(triple, CACHE_GRAPH)) ){
+      potentiallyActualDeletes.push(triple);
+    }
+  }
+
+  const inserts = chain(delta).map(c => c.inserts).flatten().value();
+  const potentiallyActualInserts = [];
+
+  for(const triple of inserts){
+    if( (await tripleExists(triple, CACHE_GRAPH)) ){
+      potentiallyActualInserts.push(triple);
+    }
+  }
+
+  if(!(potentiallyActualInserts.length || potentiallyActualDeletes.length)){
+    return [];
+  }
+  else {
+    return [ { deletes: potentiallyActualDeletes, inserts: potentiallyActualInserts } ];
+  }
+
+}
+
+async function tripleExists(tripleObject, graph){
+  const tripleStr = serializeTriple(tripleObject);
+  const existsQuery = `
+    ASK {
+      GRAPH ${sparqlEscapeUri(graph)}{
+        ${tripleStr}
+      }
+    }
+  `;
+
+  const result = await query(existsQuery);
+  return result.boolean;
 }
 
 app.use(errorHandler);

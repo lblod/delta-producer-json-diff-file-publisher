@@ -20,3 +20,34 @@ export async function storeError(errorMsg){
 
   await update(queryError);
 }
+
+export function isInverse(predicate) {
+  return predicate && predicate.startsWith('^');
+}
+
+export function sparqlEscapePredicate(predicate) {
+  return isInverse(predicate) ? `^<${predicate.slice(1)}>` : `<${predicate}>`;
+}
+
+export function normalizePredicate(predicate) {
+  return isInverse(predicate) ? predicate.slice(1) : predicate;
+}
+
+export function serializeTriple(triple) {
+  const predicate = sparqlEscapePredicate(triple.predicate.value);
+  return `${serializeTriplePart(triple.subject)} ${predicate} ${serializeTriplePart(triple.object)}.`;
+}
+
+export function serializeTriplePart(triplePart){
+  if(triplePart.type == 'uri'){
+    return sparqlEscapeUri(triplePart.value);
+  }
+  else {
+    if(triplePart.datatype){
+      return `${sparqlEscapeString(triplePart.value)}^^${sparqlEscapeUri(triplePart.datatype)}`;
+    }
+    else {
+      return sparqlEscapeString(triplePart.value);
+    }
+  }
+}
