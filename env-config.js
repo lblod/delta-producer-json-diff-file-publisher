@@ -3,6 +3,7 @@ export const LOG_OUTGOING_DELTA = process.env.LOG_OUTGOING_DELTA || false;
 export const DELTA_INTERVAL = process.env.DELTA_INTERVAL_MS || 1000;
 export const RELATIVE_FILE_PATH = process.env.RELATIVE_FILE_PATH || 'deltas';
 export const PUBLISHER_URI = process.env.PUBLISHER_URI || 'http://data.lblod.info/services/delta-producer-json-diff-file-publisher';
+export const PRETTY_PRINT_DIFF_JSON = process.env.PRETTY_PRINT_DIFF_JSON == 'true';
 
 export const PREFIXES = `
   PREFIX mu: <http://mu.semte.ch/vocabularies/core/>

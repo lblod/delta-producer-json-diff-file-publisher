@@ -42,7 +42,8 @@ The following enviroment variables can be optionally configured:
 * `RELATIVE_FILE_PATH (default: "deltas")`: relative path of the delta files compared to the root folder of the file service that will host the files.
 * `PUBLISHER_URI (default: "http://data.lblod.info/services/delta-producer-json-diff-file-publisher")`: URI underneath which delta files will be saved.
 * `CACHE_GRAPH (required)`: The cache graph the incoming deltas should come from.
-* ``ERROR_GRAPH (default: "http://mu.semte.ch/graphs/system/errors" )`: graph where to write errors to.
+* `ERROR_GRAPH (default: "http://mu.semte.ch/graphs/system/errors" )`: graph where to write errors to.
+* `PRETTY_PRINT_DIFF_JSON (default: "false")`: if you want the deltas diff file to be easy to read
 ### API
 #### POST /delta
 Endpoint that receives delta's from the [delta-notifier](https://github.com/mu-semtech/delta-notifier). The delta's are rewritten based on the configured export for mandatees. The resulting delta's are written to files that can be retrieved via the `GET /files` endpoint.

@@ -4,7 +4,8 @@ import { storeError } from './utils';
 import fs from 'fs-extra';
 import { PUBLISHER_URI,
          RELATIVE_FILE_PATH,
-         PREFIXES
+         PREFIXES,
+         PRETTY_PRINT_DIFF_JSON
        } from './env-config';
 
 const SHARE_FOLDER = '/share';
@@ -38,7 +39,13 @@ export default class DeltaCache {
         const filename = `delta-${new Date().toISOString()}.json`;
         const filepath = `/${SHARE_FOLDER}/${RELATIVE_FILE_PATH}/${filename}`;
 
-        await fs.writeFile(filepath, JSON.stringify( cachedArray ));
+        if(PRETTY_PRINT_DIFF_JSON){
+          await fs.writeFile(filepath, JSON.stringify( cachedArray, null, 2 ));
+        }
+        else {
+          await fs.writeFile(filepath, JSON.stringify( cachedArray ));
+        }
+
         console.log(`Delta cache has been written to file. Cache contained ${cachedArray.length} items.`);
 
         await this.writeFileToStore(filename, filepath);
