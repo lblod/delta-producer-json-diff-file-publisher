@@ -52,7 +52,7 @@ export default class DeltaCache {
         console.log("File is persisted in store and can be consumed now.");
 
       } catch (e) {
-        await storeError(e);
+        await storeError(e.message);
       }
     } else {
       console.log("Empty cache. Nothing to save on disk");

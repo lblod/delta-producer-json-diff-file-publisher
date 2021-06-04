@@ -40,7 +40,7 @@ app.post('/delta', async function( req, res ) {
         }
         catch(e){
           console.error(`General error processing delta ${e}`);
-          await storeError(e);
+          await storeError(e.message);
         }
       };
       processDelta();  // execute async
@@ -48,7 +48,7 @@ app.post('/delta', async function( req, res ) {
   }
   catch(e){
     console.error(`General error processing delta notification ${e}`);
-    await storeError(e);
+    await storeError(e.message);
   }
 
   res.status(202).send();
@@ -68,7 +68,7 @@ function triggerTimeout(){
     }
     catch(e){
       console.error(`Error generating delta file ${e}`);
-      storeError(e);
+      storeError(e.message);
     }
   }, DELTA_INTERVAL );
   hasTimeout = true;
