@@ -36,8 +36,11 @@ export default class DeltaCache {
       this.cache = [];
 
       try {
+        const outputDirectory = `${SHARE_FOLDER}/${RELATIVE_FILE_PATH}`;
+        fs.mkdirSync(outputDirectory, { recursive: true });
+
         const filename = `delta-${new Date().toISOString()}.json`;
-        const filepath = `/${SHARE_FOLDER}/${RELATIVE_FILE_PATH}/${filename}`;
+        const filepath = `${outputDirectory}/${filename}`;
 
         if(PRETTY_PRINT_DIFF_JSON){
           await fs.writeFile(filepath, JSON.stringify( cachedArray, null, 2 ));

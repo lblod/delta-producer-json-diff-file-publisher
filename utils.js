@@ -6,8 +6,6 @@ export async function storeError(errorMsg){
   const id = uuid();
   const uri = ERROR_URI_PREFIX + id;
 
-  console.log("COUCOUUUUUU", ERROR_GRAPH, id, errorMsg);
-
   const queryError = `
   ${PREFIXES}
 
