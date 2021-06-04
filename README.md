@@ -1,6 +1,6 @@
 # delta-producer-json-diff-file-publisher
 - Produces delta diff files based on modifications of the delta-cache graph
-- Provides endpoint so consumers can query the produced dela-files
+- Provides endpoint so consumers can query the produced delta-files
 ## Reference
 ### Configuration
 #### docker-compose.yml
@@ -12,7 +12,7 @@
       PUBLISHER_URI: "http://name/of/service/in/docker-compose/stack"
       CACHE_GRAPH: 'http://cache/graph/to/watch'
     volumes:
-       - ./data/files:/share
+      - ./data/files:/share
 ```
 #### deltanotifier
 Append the following entry:
@@ -25,7 +25,7 @@ Append the following entry:
       }
     },
     callback: {
-      url: 'http://name/of/service/in/cache/graph/delta',
+      url: 'delta-producer-json-diff-file-publisher-leidinggevenden/delta',
       method: 'POST'
     },
     options: {
@@ -87,8 +87,8 @@ The generated diff files are written to the store according to the [model of the
 | publisher | `dct:publisher` | `rdfs:Resource` | Publisher of the file, in this case always `<http://data.lblod.info/services/loket-mandatarissen-producer>` |
 
 ## Known limitations
-* The service keeps an in-memory cache of delta's to write to a file. If the service is killed before the delta's have been written to a file, the delta's are lost. Hence, shortening the `DELTA_INTERVAL`, decreases the chance to loose data on restart.
+* The service keeps an in-memory cache of delta's to write to a file. If the service is killed before the delta's have been written to a file, the delta's are lost. Hence, shortening the `DELTA_INTERVAL` decreases the chance to loose data on restart.
 
 ## Roadmap
 * Add support for a prefix map in the export configuration
-* fold incoming delta messages to what is the actual case in the cache-graph. I.e. is the delta-notification not out dated?
+* Fold incoming delta messages to what is the actual case in the cache-graph. I.e. is the delta-notification not out;dated?
