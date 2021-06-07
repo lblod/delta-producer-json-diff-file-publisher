@@ -22,7 +22,7 @@ app.post('/delta', async function( req, res ) {
 
     const extractedDelta = extractDeltaToSerialize(delta);
 
-    if(extractedDelta.length){
+    if(extractedDelta.length) {
 
       if (LOG_INCOMING_DELTA)
         console.log(`Receiving delta ${JSON.stringify(extractedDelta)}`);
