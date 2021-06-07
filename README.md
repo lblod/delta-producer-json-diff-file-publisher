@@ -25,7 +25,7 @@ Append the following entry:
       }
     },
     callback: {
-      url: 'delta-producer-json-diff-file-publisher-leidinggevenden/delta',
+      url: 'http://delta-producer-json-diff-file-publisher-leidinggevenden/delta',
       method: 'POST'
     },
     options: {
