@@ -1,7 +1,7 @@
 {
   "name": "delta-producer-json-diff-file-publisher",
   "version": "0.2.2",
-  "description": "Microservice to produce delta json diff files based on notifications from cache graph",
+  "description": "Microservice to produce delta json diff files based on notifications from publication graph",
   "dependencies": {
     "@lblod/mu-auth-sudo": "^0.2.0",
     "fs-extra": "^8.0.1",

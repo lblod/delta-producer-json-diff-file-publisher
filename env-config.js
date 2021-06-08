@@ -19,13 +19,13 @@ export const PREFIXES = `
   PREFIX dbpedia: <http://dbpedia.org/resource/>
 `;
 
-export const ERROR_URI_PREFIX = 'http://redpencil.data.gift/id/cache-maintenance/error/';
+export const ERROR_URI_PREFIX = 'http://redpencil.data.gift/id/publication-maintenance/error/';
 
 export const ERROR_GRAPH =  process.env.ERROR_GRAPH || 'http://mu.semte.ch/graphs/system/errors';
 
 export const ERROR_TYPE= 'http://open-services.net/ns/core#Error';
 export const DELTA_ERROR_TYPE = 'http://redpencil.data.gift/vocabularies/deltas/Error';
 
-if(!process.env.CACHE_GRAPH)
-  throw `Expected 'CACHE_GRAPH' should be provided.`;
-export const CACHE_GRAPH = process.env.CACHE_GRAPH;
+if(!process.env.PUBLICATION_GRAPH)
+  throw `Expected 'PUBLICATION_GRAPH' should be provided.`;
+export const PUBLICATION_GRAPH = process.env.PUBLICATION_GRAPH;

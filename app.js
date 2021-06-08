@@ -8,7 +8,7 @@ import {
   LOG_INCOMING_DELTA,
   LOG_OUTGOING_DELTA,
   DELTA_INTERVAL,
-  CACHE_GRAPH
+  PUBLICATION_GRAPH
 } from './env-config';
 
 app.use( bodyParser.json( { type: function(req) { return /^application\/json/.test( req.get('content-type') ); } } ) );
@@ -75,7 +75,7 @@ function triggerTimeout(){
 }
 
 /*
- * Extracts deltas related to CRUD of the cache-graph
+ * Extracts deltas related to CRUD of the publication-graph
  * This might be redundant, given proper config from deltanotifier, but consider
  * it as an extra safety-measure.
  */
@@ -83,13 +83,13 @@ function extractDeltaToSerialize(delta){
   const deletes = chain(delta)
         .map(c => c.deletes)
         .flatten()
-        .filter(t => t.graph.value == CACHE_GRAPH)
+        .filter(t => t.graph.value == PUBLICATION_GRAPH)
         .value();
 
   const inserts = chain(delta)
         .map(c => c.inserts)
         .flatten()
-        .filter(t => t.graph.value == CACHE_GRAPH)
+        .filter(t => t.graph.value == PUBLICATION_GRAPH)
         .value();
 
   if(!(inserts.length || deletes.length)){

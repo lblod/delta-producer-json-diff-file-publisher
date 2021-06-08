@@ -1,5 +1,5 @@
 # delta-producer-json-diff-file-publisher
-- Produces delta diff files based on modifications of the delta-cache graph
+- Produces delta diff files based on modifications of the delta-publication graph
 - Provides endpoint so consumers can query the produced delta-files
 ## Reference
 ### Configuration
@@ -10,7 +10,7 @@
     environment:
       RELATIVE_FILE_PATH: "subdirectory/from/share/on"
       PUBLISHER_URI: "http://name/of/service/in/docker-compose/stack"
-      CACHE_GRAPH: 'http://cache/graph/to/watch'
+      PUBLICATION_GRAPH: 'http://publication/graph/to/watch'
     volumes:
       - ./data/files:/share
 ```
@@ -21,7 +21,7 @@ Append the following entry:
     match: {
       graph: {
         type: 'uri',
-        value: 'http://uri/of/the/cache/graph'
+        value: 'http://uri/of/the/publication/graph'
       }
     },
     callback: {
@@ -41,7 +41,7 @@ The following enviroment variables can be optionally configured:
 * `LOG_OUTGOING_DELTA (default: "false")`: log the resulting delta message that will be written to the diff file to the console
 * `RELATIVE_FILE_PATH (default: "deltas")`: relative path of the delta files compared to the root folder of the file service that will host the files.
 * `PUBLISHER_URI (default: "http://data.lblod.info/services/delta-producer-json-diff-file-publisher")`: URI underneath which delta files will be saved.
-* `CACHE_GRAPH (required)`: The cache graph the incoming deltas should come from.
+* `PUBLICATION_GRAPH (required)`: The publication graph the incoming deltas should come from.
 * `ERROR_GRAPH (default: "http://mu.semte.ch/graphs/system/errors" )`: graph where to write errors to.
 * `PRETTY_PRINT_DIFF_JSON (default: "false")`: if you want the deltas diff file to be easy to read
 ### API
@@ -91,4 +91,4 @@ The generated diff files are written to the store according to the [model of the
 
 ## Roadmap
 * Add support for a prefix map in the export configuration
-* Fold incoming delta messages to what is the actual case in the cache-graph. I.e. is the delta-notification not out;dated?
+* Fold incoming delta messages to what is the actual case in the publication-graph. I.e. is the delta-notification not out;dated?
