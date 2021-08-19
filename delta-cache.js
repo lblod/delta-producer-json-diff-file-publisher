@@ -5,7 +5,8 @@ import fs from 'fs-extra';
 import { PUBLISHER_URI,
          RELATIVE_FILE_PATH,
          PREFIXES,
-         PRETTY_PRINT_DIFF_JSON
+         PRETTY_PRINT_DIFF_JSON,
+         FILES_GRAPH
        } from './env-config';
 
 const SHARE_FOLDER = '/share';
@@ -112,7 +113,7 @@ export default class DeltaCache {
     ${PREFIXES}
 
     INSERT DATA {
-      GRAPH <http://mu.semte.ch/graphs/public> {
+      GRAPH <${FILES_GRAPH}> {
         <${virtualFileUri}> a nfo:FileDataObject ;
           mu:uuid "${virtualFileUuid}" ;
           nfo:fileName "${filename}" ;

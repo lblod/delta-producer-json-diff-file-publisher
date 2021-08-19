@@ -25,6 +25,7 @@ export const ERROR_GRAPH =  process.env.ERROR_GRAPH || 'http://mu.semte.ch/graph
 
 export const ERROR_TYPE= 'http://open-services.net/ns/core#Error';
 export const DELTA_ERROR_TYPE = 'http://redpencil.data.gift/vocabularies/deltas/Error';
+export const FILES_GRAPH = process.env.FILES_GRAPH || 'http://mu.semte.ch/graphs/public';
 
 if(!process.env.PUBLICATION_GRAPH)
   throw `Expected 'PUBLICATION_GRAPH' should be provided.`;

@@ -44,6 +44,7 @@ The following enviroment variables can be optionally configured:
 * `PUBLICATION_GRAPH (required)`: The publication graph the incoming deltas should come from.
 * `ERROR_GRAPH (default: "http://mu.semte.ch/graphs/system/errors" )`: graph where to write errors to.
 * `PRETTY_PRINT_DIFF_JSON (default: "false")`: if you want the deltas diff file to be easy to read
+* `FILES_GRAPH (default: http://mu.semte.ch/graphs/public)`: the graph where delta files should be stored
 ### API
 #### POST /delta
 Endpoint that receives delta's from the [delta-notifier](https://github.com/mu-semtech/delta-notifier). The delta's are rewritten based on the configured export for mandatees. The resulting delta's are written to files that can be retrieved via the `GET /files` endpoint.
