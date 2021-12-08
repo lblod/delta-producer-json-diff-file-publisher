@@ -6,7 +6,8 @@ import { PUBLISHER_URI,
          RELATIVE_FILE_PATH,
          PREFIXES,
          PRETTY_PRINT_DIFF_JSON,
-         FILES_GRAPH
+         FILES_GRAPH,
+         MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE
        } from './env-config';
 
 const SHARE_FOLDER = '/share';
@@ -132,6 +133,6 @@ export default class DeltaCache {
           dct:modified ${nowLiteral} .
       }
     }
-  `);
+  `, { 'mu-call-scope-id': MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE });
   }
 }

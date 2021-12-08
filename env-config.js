@@ -27,6 +27,9 @@ export const ERROR_TYPE= 'http://open-services.net/ns/core#Error';
 export const DELTA_ERROR_TYPE = 'http://redpencil.data.gift/vocabularies/deltas/Error';
 export const FILES_GRAPH = process.env.FILES_GRAPH || 'http://mu.semte.ch/graphs/public';
 
+export const MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE = process.env.MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE
+  || 'http://redpencil.data.gift/id/concept/muScope/deltas/publicationGraphMaintenance';
+
 if(!process.env.PUBLICATION_GRAPH)
   throw `Expected 'PUBLICATION_GRAPH' should be provided.`;
 export const PUBLICATION_GRAPH = process.env.PUBLICATION_GRAPH;
