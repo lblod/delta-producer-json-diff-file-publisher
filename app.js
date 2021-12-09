@@ -1,8 +1,9 @@
-import { app, errorHandler } from 'mu';
+import { app, errorHandler, sparqlEscapeUri, uuid } from 'mu';
 import bodyParser from 'body-parser';
 import DeltaCache from './delta-cache';
 import { chain } from 'lodash';
 import { storeError } from './utils';
+import { updateSudo } from '@lblod/mu-auth-sudo';
 
 import {
   LOG_INCOMING_DELTA,
@@ -15,6 +16,42 @@ app.use( bodyParser.json( { type: function(req) { return /^application\/json/.te
 
 const cache = new DeltaCache();
 let hasTimeout = null;
+
+app.post('/login', async function(req, res) {
+  try {
+    // 1. get environment info
+    const sessionUri = req.get('mu-session-id');
+
+    // 2. validate credentials
+    if( req.get("key") !== process.env.KEY ) {
+      throw "Key does not match";
+    }
+
+    // 3. add new login to session
+    updateSudo(`PREFIX muAccount: <http://mu.semte.ch/vocabularies/account/>
+      INSERT DATA {
+        GRAPH <http://mu.semte.ch/graphs/diff-producer/login> {
+          ${sparqlEscapeUri(sessionUri)} muAccount:account <http://services.lblod.info/diff-producer/account>.
+        }
+      }`);
+
+    // 4. request login recalculation
+    return res
+      .header('mu-auth-allowed-groups', 'CLEAR')
+      .status(201)
+      .send({
+        links: {
+          self: '/sessions/current'
+        },
+        data: {
+          type: 'sessions',
+          id: uuid()
+        }
+      });
+  } catch (e) {
+    res.status(500).send({ message: "Something went wrong" });
+  }
+});
 
 app.post('/delta', async function( req, res ) {
   try {
