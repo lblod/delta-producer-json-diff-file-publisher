@@ -83,13 +83,11 @@ function extractDeltaToSerialize(delta){
   const deletes = chain(delta)
         .map(c => c.deletes)
         .flatten()
-        .filter(t => t.graph.value == PUBLICATION_GRAPH)
         .value();
 
   const inserts = chain(delta)
         .map(c => c.inserts)
         .flatten()
-        .filter(t => t.graph.value == PUBLICATION_GRAPH)
         .value();
 
   if(!(inserts.length || deletes.length)){
