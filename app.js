@@ -12,7 +12,9 @@ import {
   PUBLICATION_GRAPH
 } from './env-config';
 
-app.use( bodyParser.json( { type: function(req) { return /^application\/json/.test( req.get('content-type') ); } } ) );
+app.use( bodyParser.json({
+  type: function(req) { return /^application\/json/.test( req.get('content-type') ); },
+  limit: '500mb' }));
 
 const cache = new DeltaCache();
 let hasTimeout = null;
