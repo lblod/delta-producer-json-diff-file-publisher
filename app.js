@@ -33,7 +33,7 @@ app.post('/login', async function(req, res) {
     updateSudo(`PREFIX muAccount: <http://mu.semte.ch/vocabularies/account/>
       INSERT DATA {
         GRAPH <http://mu.semte.ch/graphs/diff-producer/login> {
-          ${sparqlEscapeUri(sessionUri)} muAccount:account <http://services.lblod.info/diff-producer/account>.
+          ${sparqlEscapeUri(sessionUri)} muAccount:account <http://services.lblod.info/diff-consumer/account>.
         }
       }`);
 
