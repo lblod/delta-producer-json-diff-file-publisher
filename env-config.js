@@ -29,3 +29,5 @@ export const FILES_GRAPH = process.env.FILES_GRAPH || 'http://mu.semte.ch/graphs
 
 export const MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE = process.env.MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE
   || 'http://redpencil.data.gift/id/concept/muScope/deltas/publicationGraphMaintenance/deltaFilestorage';
+
+export const KEY = process.env.KEY || '';
