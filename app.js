@@ -18,6 +18,12 @@ let hasTimeout = null;
 
 app.post('/login', async function(req, res) {
   try {
+
+    // 0. To avoid false sense of security, login only makes sense if accepted key is provided
+    if(!KEY){
+      throw "No key configured in service.";
+    }
+
     // 1. get environment info
     const sessionUri = req.get('mu-session-id');
 
