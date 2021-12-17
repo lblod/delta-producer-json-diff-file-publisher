@@ -16,10 +16,12 @@ app.use( bodyParser.json({
 const cache = new DeltaCache();
 let hasTimeout = null;
 
+//TODO: Re-consider the location of this endpoint.
+// The session created here, is used in other services too.
 app.post('/login', async function(req, res) {
   try {
 
-    // 0. To avoid false sense of security, login only makes sense if accepted key is provided
+    // 0. To avoid false sense of security, login only makes sense if accepted key is configured
     if(!KEY){
       throw "No key configured in service.";
     }
