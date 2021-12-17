@@ -1,6 +1,6 @@
-import { querySudo as query, updateSudo as update } from '@lblod/mu-auth-sudo';
+import { updateSudo as update } from '@lblod/mu-auth-sudo';
 import fs from 'fs-extra';
-import { sparqlEscapeDateTime, uuid } from 'mu';
+import { sparqlEscapeDateTime, uuid, query } from 'mu';
 import {
     FILES_GRAPH,
     MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE, PREFIXES,
