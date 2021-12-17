@@ -47,8 +47,9 @@ app.post('/login', async function(req, res) {
           id: uuid()
         }
       });
-  } catch (e) {
-    res.status(500).send({ message: "Something went wrong" });
+  }
+  catch (e) {
+    return res.status(500).send({ message: "Something went wrong" });
   }
 });
 
