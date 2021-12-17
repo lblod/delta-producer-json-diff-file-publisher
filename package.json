@@ -1,6 +1,6 @@
 {
   "name": "delta-producer-json-diff-file-publisher",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Microservice to produce delta json diff files based on notifications from publication graph",
   "dependencies": {
     "@lblod/mu-auth-sudo": "git://github.com:lblod/mu-auth-sudo.git#bdbd063dc8e4d3a891c713a0077a54bc8a010ca1",
