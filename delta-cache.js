@@ -1,14 +1,13 @@
-import { uuid, sparqlEscapeDateTime } from 'mu';
 import { querySudo as query, updateSudo as update } from '@lblod/mu-auth-sudo';
-import { storeError } from './utils';
 import fs from 'fs-extra';
-import { PUBLISHER_URI,
-         RELATIVE_FILE_PATH,
-         PREFIXES,
-         PRETTY_PRINT_DIFF_JSON,
-         FILES_GRAPH,
-         MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE
-       } from './env-config';
+import { sparqlEscapeDateTime, uuid } from 'mu';
+import {
+    FILES_GRAPH,
+    MU_CALL_SCOPE_ID_PUBLICATION_GRAPH_MAINTENANCE, PREFIXES,
+    PRETTY_PRINT_DIFF_JSON, PUBLISHER_URI,
+    RELATIVE_FILE_PATH
+} from './env-config';
+import { storeError } from './utils';
 
 const SHARE_FOLDER = '/share';
 
