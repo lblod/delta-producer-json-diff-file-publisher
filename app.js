@@ -1,16 +1,14 @@
-import { app, errorHandler, sparqlEscapeUri, uuid } from 'mu';
-import bodyParser from 'body-parser';
-import DeltaCache from './delta-cache';
-import { chain } from 'lodash';
-import { storeError } from './utils';
 import { updateSudo } from '@lblod/mu-auth-sudo';
-
+import bodyParser from 'body-parser';
+import { chain } from 'lodash';
+import { app, errorHandler, sparqlEscapeUri, uuid } from 'mu';
+import DeltaCache from './delta-cache';
 import {
-  LOG_INCOMING_DELTA,
-  LOG_OUTGOING_DELTA,
-  DELTA_INTERVAL,
-  PUBLICATION_GRAPH
+    DELTA_INTERVAL, LOG_INCOMING_DELTA,
+    LOG_OUTGOING_DELTA
 } from './env-config';
+import { storeError } from './utils';
+
 
 app.use( bodyParser.json({
   type: function(req) { return /^application\/json/.test( req.get('content-type') ); },
