@@ -55,6 +55,7 @@ app.post('/login', async function(req, res) {
       });
   }
   catch (e) {
+    console.error(e);
     return res.status(500).send({ message: "Something went wrong" });
   }
 });
