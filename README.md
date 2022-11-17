@@ -10,7 +10,6 @@
     environment:
       RELATIVE_FILE_PATH: "subdirectory/from/share/on"
       PUBLISHER_URI: "http://name/of/service/in/docker-compose/stack"
-      PUBLICATION_GRAPH: 'http://publication/graph/to/watch'
     volumes:
       - ./data/files:/share
 ```
