@@ -37,10 +37,15 @@ export default class DeltaCache {
       this.cache = [];
 
       try {
-        const outputDirectory = `${SHARE_FOLDER}/${RELATIVE_FILE_PATH}`;
+        const date = new Date();
+        const dayFormatted = new Intl.DateTimeFormat("en-CA", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }).format(new Date(date));
+        const outputDirectory = `${SHARE_FOLDER}/${RELATIVE_FILE_PATH}/${dayFormatted}`;
         fs.mkdirSync(outputDirectory, { recursive: true });
-
-        const filename = `delta-${new Date().toISOString()}.json`;
+        const filename = `delta-${date.toISOString()}.json`;
         const filepath = `${outputDirectory}/${filename}`;
 
         if(PRETTY_PRINT_DIFF_JSON){
