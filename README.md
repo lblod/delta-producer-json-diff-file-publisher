@@ -1,6 +1,11 @@
 # delta-producer-json-diff-file-publisher
 - Produces delta diff files based on modifications of the delta-publication graph
 - Provides endpoint so consumers can query the produced delta-files
+
+# warning
+Archived repo.
+Please refer to [delta-producer-publication-graph-maintainer](https://github.com/lblod/delta-producer-publication-graph-maintainer) where this format is provided as the default serialization format.
+
 ## Reference
 ### Configuration
 #### docker-compose.yml
